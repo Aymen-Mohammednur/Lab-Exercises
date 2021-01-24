@@ -45,7 +45,17 @@ function clearAllTasks(e) {
 }
 
 function filterTasks(e) {
-    console.log("Task Filter..");
+    const userInput = filter.value.toUpperCase();
+    const collection = document.querySelectorAll(".collection-item");
+    for (let i = 0; i < collection.length; i++) {
+        var txtValue = collection[i].textContent;
+        if (txtValue.toUpperCase().indexOf(userInput) > -1) {
+            collection[i].style.display = "block";
+        }
+        else {
+            collection[i].style.display = "none";
+        }
+    }
 }
 
 function removeTask(e) {
