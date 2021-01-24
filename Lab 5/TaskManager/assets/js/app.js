@@ -6,6 +6,7 @@ const filter = document.querySelector('#filter');
 const taskList = document.querySelector('.collection');
 const clearBtn = document.querySelector('.clear-tasks');
 const reloadIcon = document.querySelector('.fa');
+const sorting = document.querySelector('#sort');
 
 // Adding Event Listeners
 
@@ -14,6 +15,7 @@ clearBtn.addEventListener('click', clearAllTasks);
 filter.addEventListener('keyup', filterTasks);
 taskList.addEventListener('click', removeTask);
 reloadIcon.addEventListener('click', reloadPage);
+sorting.addEventListener('change', sortTasks);
 
 // Function Definitions
 
@@ -68,4 +70,11 @@ function removeTask(e) {
 
 function reloadPage() {
     location.reload();
+}
+
+function sortTasks(e) {
+    let i = taskList.childNodes.length;
+    while (i--) {
+        taskList.appendChild(taskList.childNodes[i]);
+    }
 }

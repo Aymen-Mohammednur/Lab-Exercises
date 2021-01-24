@@ -20,10 +20,10 @@ Good Luck !!!
 // Define UI Variables  here 
 const reloadIcon = document.querySelector(".fa");
 const answer = document.querySelectorAll(".badge");
-const href = answer[0], protocol = answer[1], host = answer[2], port = answer[3], hostName = answer[4], pathName = answer[5], Hash = answer[6];
-const appName = answer[7], appVersion = answer[8], platform = answer[9], language = answer[10], cookieEnabled = answer[11], userAgent = answer[12], geoLocation = answer[13];
-const height = answer[14], width = answer[15], pixelDepth = answer[16], colorDepth = answer[17];
-const Length = answer[18], state = answer[19], scrollRest = answer[20];
+const locationInfo = document.querySelectorAll(".collection")[0];
+const browserInfo = document.querySelectorAll(".collection")[1];
+const screenInfo = document.querySelectorAll(".collection")[2];
+const historyInfo = document.querySelectorAll(".collection")[3];
 
 // Adding Event Listeners
 reloadIcon.addEventListener('click', reloadPage);
@@ -34,27 +34,28 @@ function reloadPage() {
 }
 
 // Display the BOM Information on the innerHTML of the elements
-href.innerHTML = location.href;
-protocol.innerHTML = location.protocol;
-host.innerHTML = location.host;
-port.innerHTML = location.port;
-hostName.innerHTML = location.hostname;
-pathName.innerHTML = location.pathname;
-Hash.innerHTML = location.hash;
 
-appName.innerHTML = navigator.appName;
-appVersion.innerHTML = navigator.appVersion;
-platform.innerHTML = navigator.platform;
-language.innerHTML = navigator.language;
-cookieEnabled.innerHTML = navigator.cookieEnabled;
-userAgent.innerHTML = navigator.userAgent;
-geoLocation.innerHTML = navigator.geolocation;
+locationInfo.children[0].firstElementChild.textContent = location.href;
+locationInfo.children[1].firstElementChild.textContent = location.protocol;
+locationInfo.children[2].firstElementChild.textContent = location.host;
+locationInfo.children[3].firstElementChild.textContent = location.port;
+locationInfo.children[4].firstElementChild.textContent = location.hostname;
+locationInfo.children[5].firstElementChild.textContent = location.pathname;
+locationInfo.children[6].firstElementChild.textContent = location.hash;
 
-height.innerHTML = screen.height;
-width.innerHTML = screen.width;
-pixelDepth.innerHTML = screen.pixelDepth;
-colorDepth.innerHTML = screen.colorDepth;
+browserInfo.children[0].firstElementChild.textContent = navigator.appName;
+browserInfo.children[1].firstElementChild.textContent = navigator.appVersion;
+browserInfo.children[2].firstElementChild.textContent = navigator.platform;
+browserInfo.children[3].firstElementChild.textContent = navigator.language;
+browserInfo.children[4].firstElementChild.textContent = navigator.cookieEnabled;
+browserInfo.children[5].firstElementChild.textContent = navigator.userAgent;
+browserInfo.children[6].firstElementChild.textContent = navigator.geolocation;
 
-Length.innerHTML = window.history.length;
-state.innerHTML = window.history.state;
-scrollRest.innerHTML = window.history.scrollRestoration;
+screenInfo.children[0].firstElementChild.textContent = screen.height;
+screenInfo.children[1].firstElementChild.textContent = screen.width;
+screenInfo.children[2].firstElementChild.textContent = screen.pixelDepth;
+screenInfo.children[3].firstElementChild.textContent = screen.colorDepth;
+
+historyInfo.children[0].firstElementChild.textContent = window.history.length;
+historyInfo.children[1].firstElementChild.textContent = window.history.state;
+historyInfo.children[2].firstElementChild.textContent = window.history.scrollRestoration;
