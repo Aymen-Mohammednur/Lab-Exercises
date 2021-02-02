@@ -7,6 +7,7 @@ const taskList = document.querySelector('.collection');
 const clearBtn = document.querySelector('.clear-tasks');
 const reloadIcon = document.querySelector('.fa');
 const sorting = document.querySelector('#sort');
+let asc = true;
 
 // Adding Event Listeners
 
@@ -32,9 +33,18 @@ function addNewTask(e) {
     const link = document.createElement('a');
     link.innerHTML = "<i class= 'fa fa-remove'></i>";
     link.className = "delete-item secondary-content";
-
     li.appendChild(link);
-    taskList.appendChild(li);
+
+    var d = document.createElement('a');
+    d.className = "mydate";
+    d.textContent = new Date();
+    d.style = "display:none";
+
+    li.appendChild(d);
+
+    if (!asc) taskList.insertBefore(li, taskList.children[0])
+    else taskList.appendChild(li);
+    taskInput.value = "";
 
     e.preventDefault();
 }
@@ -50,7 +60,7 @@ function filterTasks(e) {
     const userInput = filter.value.toUpperCase();
     const collection = document.querySelectorAll(".collection-item");
     for (let i = 0; i < collection.length; i++) {
-        var txtValue = collection[i].textContent;
+        var txtValue = collection[i].firstChild.textContent;
         if (txtValue.toUpperCase().indexOf(userInput) > -1) {
             collection[i].style.display = "block";
         }
@@ -77,4 +87,5 @@ function sortTasks(e) {
     while (i--) {
         taskList.appendChild(taskList.childNodes[i]);
     }
+    asc = !asc;
 }

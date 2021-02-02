@@ -8,83 +8,6 @@ while (i--) {
     buttons[i].addEventListener("click", main);
 }
 
-// function main(e){
-//     let inputValue = input.value;
-//     let targetName = e.target.name;
-//     if(targetName == "+" || targetName == "-" || targetName == "*" || targetName == "/"|| targetName == "%"|| targetName == "//" || targetName == "pow" || targetName == "sqrt" ){
-//         if(input.value){
-//             if(first_item){
-     
-//                 if(targetName == "pow" || targetName == "sqrt"){
-//                     calculations.value = targetName + " " + String(inputValue)
-//                     results.value = (targetName == "pow" )? Math.pow(Number(inputValue), 2) : Math.sqrt(Number(inputValue))
-//                 }
-//                 else{
-//                     calculations.value = String(inputValue)
-//                     results.value = inputValue
-//                     }
-//                 input.value = ""
-//                 first_item = false
-//             }
-//             else{
-//                 if(targetName == "pow" || targetName == "sqrt"){
-//                     calculations.value = targetName + " " + String(inputValue)
-//                 }
-//                 else{
-//                     calculations.value = calculations.value + targetName + String(inputValue)
-//                 }
-//                 input.value = ""
-            
-//                 switch(targetName){
-//                     case "+":
-//                         results.value = add([results.value, inputValue])
-//                         break;
-//                     case "-":
-//                         results.value = sub(results.value, inputValue)
-//                         break;
-//                     case "*":
-//                         results.value = mult([results.value, inputValue])
-//                         break;
-//                     case "/":
-//                         results.value = div(results.value, inputValue)
-//                         break;
-//                     case "%":
-//                         results.value = mod(results.value, inputValue)
-//                         break;
-//                     case "//":
-//                         results.value = int_div(results.value, inputValue)
-//                         break;
-//                     case "pow":
-//                         results.value = Math.pow(Number(results.value), 2)
-//                         break;
-//                     case "sqrt":
-//                         results.value = Math.sqrt(Number(results.value))
-//                         break;
-//                 }
-//             }
-//         }
-//     }
-//     else{
-//         if(targetName == "c"){
-//             first_item = true;
-//             calculations.value = "";
-//             results.value = "";
-//         }
-//         else{
-//             if(first_item){
-//                 calculations.value = String(inputValue)
-//                 results.value = inputValue
-//                 first_item = false
-//             }
-//             else{
-//                 alert("Your result is shown below or you haven't chosen operation")
-//             }
-//         }
-//         input.value = ""
-//     }
-
-// }
-
 function main(e) {
     let inputValue = input.value;
     let operation = e.target.name;
@@ -123,6 +46,7 @@ function main(e) {
     }
     else if (operation == 'ac') {
         result.value = "";
+        input.value = "";
     }
     else if (operation == 'equals') {
         result.value = inputValue;
