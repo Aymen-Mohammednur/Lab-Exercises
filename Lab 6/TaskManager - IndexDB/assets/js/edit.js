@@ -71,8 +71,32 @@ document.addEventListener('DOMContentLoaded', () => {
         2. Use the id on put method of index db
         
         */
+        let transaction = DB.transaction('tasks', 'readwrite');
+        let objectStore = transaction.objectStore('tasks');
 
+        let request = objectStore.openCursor();
+        request.onsuccess = e => {
+            let cursor = e.target.result;
+            let newTask = {
+                taskname: taskInput.value,
+                date: Date.now(),
+                id: id
+            }
+            if (cursor) {
+                if (cursor.value.id == id) {
+                    objectStore.put(newTask);
+                }
+
+            }
+            cursor.continue();
+            
+        }
+        
+        request.onerror = e => {
+            console.log("There was an error");
+        }
         history.back();
+        
     }
 
 

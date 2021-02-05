@@ -1,101 +1,94 @@
-let input = document.getElementById("input");
-let buttons = document.querySelectorAll(".btn");
-let calculations = document.getElementById("calculation");
-let result = document.getElementById("result");
+const firstDisp = document.querySelector(".first-display");
+const secondDisp = document.querySelector(".second-display");
+const numbers = document.querySelectorAll(".number");
+const operations = document.querySelectorAll(".operation");
+const equalBtn = document.querySelector(".equal");
+const clearAll = document.querySelector(".all-clear");
+const clearLast = document.querySelector(".last-clear");
+let firstNum = "";
+let secondNum = "";
+let result = null;
+let lastOperation = "";
+let haveDot = false;
 
-let i = buttons.length;
-while (i--) {
-    buttons[i].addEventListener("click", main);
+numbers.forEach((number) => {
+  number.addEventListener("click", (e) => {
+    if (e.target.innerText === "." && !haveDot) {
+      haveDot = true;
+    } else if (e.target.innerText === "." && haveDot) {
+      return;
+    }
+    secondNum += e.target.innerText;
+    secondDisp.innerText = secondNum;
+  });
+});
+
+operations.forEach((operation) => {
+  operation.addEventListener("click", (e) => {
+    if (!secondNum) return;
+    const currentOp = e.target.innerText;
+    if (firstNum && secondNum && lastOperation) {
+      evaluate();
+    } else {
+      result = Number(secondNum);
+    }
+    clearThis(currentOp);
+    lastOperation = currentOp;
+    console.log(result);
+  });
+});
+
+function clearThis(name = "") {
+  firstNum += secondNum + " " + name + " ";
+  firstDisp.innerText = firstNum;
+  secondDisp.innerText = "";
+  secondNum = "";
 }
 
-function main(e) {
-    let inputValue = input.value;
-    let operation = e.target.name;
-    if (operation == '+' || operation == '-' || operation == '*' || operation == '/' || operation == 'pow' || operation == 'sqrt' || operation == '%') {
-        if (operation == "pow") {
-            result.value = square(inputValue);
-            //input.value = "";
-        }
-        else if (operation == "sqrt") {
-            result.value = Math.sqrt(Number(inputValue));
-            //input.value = "";
-        }
-        else if (operation == "+") {
-            result.value = add([result.value, inputValue]);
-            //input.value = "";
-        }
-        else if (operation == "*") {
-            result.value = mul([result.value, inputValue]);
-            //input.value = "";
-        }
-        else if (operation == "-") {
-            result.value = sub(result.value, inputValue);
-            //input.value = "";
-        }
-        else if (operation == "/") {
-            result.value = div(result.value, inputValue);
-            //input.value = "";
-        }
-        else if (operation == "%") {
-            result.value = modulous(result.value, inputValue);
-            //input.value = "";
-        }
-        else {
-            result.value = inputValue;
-        }
-    }
-    else if (operation == 'ac') {
-        result.value = "";
-        input.value = "";
-    }
-    else if (operation == 'equals') {
-        result.value = inputValue;
-    }
-}
-
-function add(arr) {
-    let result = 0;
-    for(let i = 0; i < arr.length; i++) {
-        result += Number(arr[i]);
-    }
-    return result;
-}
-
-function sub(num1, num2) {
-    let result = 0;
-    result = Number(num1) - Number(num2);
-    return result;
-}
-
-function mul(arr) {
-    let result = 1;
-    for( var i = 0; i < arr.length; i++) {
-        result *= Number(arr[i]);
-    }
-    return result;
-}
-
-function div(num1, num2) {
-    let result = 0;
-    if (num2 != 0) {
-        result = Number(num1) / Number(num2);
-        return result;
+function evaluate() {
+  if (lastOperation === "x") {
+    result = Number(result) * Number(secondNum);
+  } 
+  else if (lastOperation === "+") {
+    result = Number(result) + Number(secondNum);
+  } 
+  else if (lastOperation === "-") {
+    result = Number(result) - Number(secondNum);
+  } 
+  else if (lastOperation === "/") {
+    if (secondNum === '0') {
+      alert("Can not divide by 0!");
+      secondNum = "";
     }
     else {
-        return "Can't divide by 0!";
+      result = Number(result) / Number(secondNum);
     }
+  } 
+  else if (lastOperation === "%") {
+    result = Number(result) % Number(secondNum);
+  }
+  
 }
 
-square = (num) => {
-    return num * num;
-}
+equalBtn.addEventListener("click", () => {
+  if (!secondNum || !firstNum) return;
+  haveDot = false;
+  evaluate();
+  clearThis();
+  secondDisp.innerText = result;
+  secondNum = result;
+  firstNum = "";
+});
 
-let modulous = (num1, num2) => {
-    if (num2 == 0) {
-        return "Can't divide by 0!";
-    }
-    else {
-        let result = (Number(num1)) % (Number(num2));
-        return result;
-    }
-}
+clearAll.addEventListener("click", () => {
+  firstNum = "";
+  secondNum = "";
+  firstDisp.innerText = "0";
+  secondDisp.innerText = "0";
+  result = "";
+});
+
+clearLast.addEventListener("click", () => {
+  secondDisp.innerText = "0";
+  secondNum = "";
+});

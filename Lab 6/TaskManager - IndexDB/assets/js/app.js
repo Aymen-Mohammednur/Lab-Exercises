@@ -4,6 +4,7 @@ const form = document.querySelector('#task-form'); //The form at the top
 const filter = document.querySelector('#filter'); //the task filter text field
 const taskList = document.querySelector('.collection'); //The UL
 const clearBtn = document.querySelector('.clear-tasks'); //the all task clear button
+const sorting = document.querySelector('#sort');
 
 const reloadIcon = document.querySelector('.fa'); //the reload button at the top navigation
 
@@ -24,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // if everything is fine, assign the result to the instance
     TasksDB.onsuccess = function() {
-        // console.log('Database Ready');
+        console.log('Database Ready');
 
         // save the result
         DB = TasksDB.result;
@@ -114,10 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Add class and the x marker for a 
                 link.className = 'delete-item secondary-content';
                 link.innerHTML = `
-                 <i class="fa fa-remove"></i>
-                &nbsp;
-                <a href="/Lesson 04 [Lab 06]/Finished/edit.html?id=${cursor.value.id}"><i class="fa fa-edit"></i> </a>
-                `;
+                <i class="fa fa-remove"></i>  &nbsp;
+               <a href="././edit.html?id=${cursor.value.id}"><i class="fa fa-edit"></i> </a> `;
                 // Append link to li
                 li.appendChild(link);
                 // Append to UL 
@@ -162,6 +161,51 @@ document.addEventListener('DOMContentLoaded', () => {
         tasks.clear();
         displayTaskList();
         console.log("Tasks Cleared !!!");
+    }
+
+    // sorting
+    sorting.addEventListener('change', sortTasks);
+    function sortTasks(e) {
+        while (taskList.firstChild) {
+            taskList.removeChild(taskList.firstChild);
+        }
+
+        // create the object store
+        let objectStore = DB.transaction('tasks').objectStore('tasks');
+
+        objectStore.openCursor().onsuccess = function(e) {
+            // assign the current cursor
+            let cursor = e.target.result;
+
+            if (cursor) {
+
+                // Create an li element when the user adds a task 
+                const li = document.createElement('li');
+                //add Attribute for delete 
+                li.setAttribute('data-task-id', cursor.value.id);
+                // Adding a class
+                li.className = 'collection-item';
+                // Create text node and append it 
+                li.appendChild(document.createTextNode(cursor.value.taskname));
+                // Create new element for the link 
+                const link = document.createElement('a');
+                // Add class and the x marker for a 
+                link.className = 'delete-item secondary-content';
+                link.innerHTML = `
+                <i class="fa fa-remove"></i>  &nbsp;
+               <a href="././edit.html?id=${cursor.value.id}"><i class="fa fa-edit"></i> </a> `;
+                // Append link to li
+                li.appendChild(link);
+                // Append to UL 
+                if (e.target.value == "asc") {
+                    taskList.appendChild(li);
+                }
+                else {
+                    taskList.prepend(li);
+                }
+                cursor.continue();
+            }
+        }
     }
 
 
