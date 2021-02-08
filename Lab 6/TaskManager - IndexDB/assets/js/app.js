@@ -13,6 +13,7 @@ filter.addEventListener('keyup', filterTasks);
 //DB variable 
 
 let DB;
+let asc = true;
 
 // Add Event Listener [on Load]
 document.addEventListener('DOMContentLoaded', () => {
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // create a new object with the form info
         let newTask = {
             taskname: taskInput.value,
+            date: Date.now()
         }
 
         // Insert the object into the database 
@@ -86,44 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     }
-
+    
     function displayTaskList() {
         // clear the previous task list
         while (taskList.firstChild) {
             taskList.removeChild(taskList.firstChild);
         }
 
-        // create the object store
-        let objectStore = DB.transaction('tasks').objectStore('tasks');
-
-        objectStore.openCursor().onsuccess = function(e) {
-            // assign the current cursor
-            let cursor = e.target.result;
-
-            if (cursor) {
-
-                // Create an li element when the user adds a task 
-                const li = document.createElement('li');
-                //add Attribute for delete 
-                li.setAttribute('data-task-id', cursor.value.id);
-                // Adding a class
-                li.className = 'collection-item';
-                // Create text node and append it 
-                li.appendChild(document.createTextNode(cursor.value.taskname));
-                // Create new element for the link 
-                const link = document.createElement('a');
-                // Add class and the x marker for a 
-                link.className = 'delete-item secondary-content';
-                link.innerHTML = `
-                <i class="fa fa-remove"></i>  &nbsp;
-               <a href="././edit.html?id=${cursor.value.id}"><i class="fa fa-edit"></i> </a> `;
-                // Append link to li
-                li.appendChild(link);
-                // Append to UL 
-                taskList.appendChild(li);
-                cursor.continue();
-            }
-        }
+        createElements();
     }
 
     // Remove task event [event delegation]
@@ -143,11 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 transaction.oncomplete = () => {
                     e.target.parentElement.parentElement.remove();
                 }
-
             }
-
         }
-
     }
 
     //clear button event listener   
@@ -165,12 +134,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // sorting
     sorting.addEventListener('change', sortTasks);
-    function sortTasks(e) {
+    function sortTasks() {
+        asc = !asc;
         while (taskList.firstChild) {
             taskList.removeChild(taskList.firstChild);
         }
+        if (asc) {
+            createElements();
+        }
+        else {
+            let objectStore = DB.transaction('tasks').objectStore('tasks');
 
-        // create the object store
+            objectStore.openCursor().onsuccess = function(e) {
+            // assign the current cursor
+            let cursor = e.target.result;
+
+            if (cursor) {
+
+                // Create an li element when the user adds a task 
+                const li = document.createElement('li');
+                //add Attribute for delete 
+                li.setAttribute('data-task-id', cursor.value.id);
+                // Adding a class
+                li.className = 'collection-item';
+                // Create text node and append it 
+                li.appendChild(document.createTextNode(cursor.value.taskname));
+                // Create new element for the link 
+                const link = document.createElement('a');
+                // Add class and the x marker for a 
+                link.className = 'delete-item secondary-content';
+                link.innerHTML = `
+                <i class="fa fa-remove"></i>  &nbsp;
+               <a href="././edit.html?id=${cursor.value.id}"><i class="fa fa-edit"></i> </a> `;
+                link.appendChild(document.createTextNode(cursor.value.date));
+                // Append link to li
+                li.appendChild(link);
+                // Append to UL 
+                taskList.prepend(li);
+                cursor.continue();
+            }
+        }
+        }
+        
+    }
+
+    function createElements() {
         let objectStore = DB.transaction('tasks').objectStore('tasks');
 
         objectStore.openCursor().onsuccess = function(e) {
@@ -194,15 +202,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.innerHTML = `
                 <i class="fa fa-remove"></i>  &nbsp;
                <a href="././edit.html?id=${cursor.value.id}"><i class="fa fa-edit"></i> </a> `;
+                link.appendChild(document.createTextNode(cursor.value.date));
                 // Append link to li
                 li.appendChild(link);
                 // Append to UL 
-                if (e.target.value == "asc") {
-                    taskList.appendChild(li);
-                }
-                else {
-                    taskList.prepend(li);
-                }
+                taskList.appendChild(li);
                 cursor.continue();
             }
         }

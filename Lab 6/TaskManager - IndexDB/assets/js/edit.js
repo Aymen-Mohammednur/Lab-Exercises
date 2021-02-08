@@ -86,10 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cursor.value.id == id) {
                     objectStore.put(newTask);
                 }
-
+                cursor.continue();
             }
-            cursor.continue();
-            
         }
         
         request.onerror = e => {
