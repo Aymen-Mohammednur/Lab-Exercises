@@ -6,7 +6,7 @@ function loadPost() {
     const xhr = new XMLHttpRequest();
 
     // change file URL up on your location
-    xhr.open('GET','././jsonData/post.json', true);
+    xhr.open('GET','././asset/jsonData/post.json', true);
 
     xhr.onload = function() {
         if (this.status === 200) {  // check the status
