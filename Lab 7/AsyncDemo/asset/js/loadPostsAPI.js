@@ -1,5 +1,6 @@
 // UI Vars 
 const postDiv3 = document.getElementById('thePosts');
+const spinner = document.getElementById("spinner");
 
 //Load Every thing ....
 document.addEventListener("DOMContentLoaded", () => {
@@ -43,22 +44,18 @@ function load_fromPlaceHolder() {
         
         `;
             });
+            timeout = setTimeout( () => {
+                spinner.style.display = "none";
+                postDiv3.innerHTML = output;
+            }, 1000)
             
-            postDiv3.innerHTML = output;
+            
         })
         .catch(function(err) {
             console.log(err);
         });
 
-        timeout = setTimeout( () => {
-            output = `<div class="ui segment">
-            <p></p>
-            <div class="ui active dimmer">
-              <div class="ui loader"></div>
-            </div>
-          </div>`;
-
-        }, 1000)
+        
 
 }
 
