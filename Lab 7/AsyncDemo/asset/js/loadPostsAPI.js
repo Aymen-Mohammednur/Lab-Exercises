@@ -3,8 +3,8 @@ const postDiv3 = document.getElementById('thePosts');
 
 //Load Every thing ....
 document.addEventListener("DOMContentLoaded", () => {
-    //load_fromPlaceHolder();
-    loadDataNew();
+    load_fromPlaceHolder();
+    //loadDataNew();
 });
 
 
@@ -43,6 +43,7 @@ function load_fromPlaceHolder() {
         
         `;
             });
+            
             postDiv3.innerHTML = output;
         })
         .catch(function(err) {
@@ -56,6 +57,7 @@ function load_fromPlaceHolder() {
               <div class="ui loader"></div>
             </div>
           </div>`;
+
         }, 1000)
 
 }
