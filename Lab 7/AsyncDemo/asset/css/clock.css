@@ -40,7 +40,7 @@ body {
     transform: translateY(-3px);
 }
 
-.hand {
+.hour, .minute, .seconds {
     width: 50%;
     height: 6px;
     background: rgb(148, 25, 25);
@@ -49,5 +49,4 @@ body {
     transform-origin: 100%;
     transform: rotate(90deg);
     transition: 0.3s all;
-    /* transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1); */
 }

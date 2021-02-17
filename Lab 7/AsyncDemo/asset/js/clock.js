@@ -1,27 +1,24 @@
-const clock=document.querySelector('.clock');
-// clock.style.backgroundImage=url('./analog_clock_3.gif');
+const hour = document.querySelector('.hour');
+const minute = document.querySelector('.minute');
+const second = document.querySelector('.seconds');
 
-const hourHand = document.querySelector('.hand-hour');
-const minuteHand = document.querySelector('.hand-minute');
-const secondHand = document.querySelector('.hand-seconds');
+function setClock() {
+    const myDate = new Date();
 
-function getTime() {
-    const now = new Date();
-
-    const seconds = now.getSeconds();
+    const seconds = myDate.getSeconds();
     const secondsDegree = (((seconds / 60) * 360) + 90);
-    secondHand.style.transform = `rotate(${secondsDegree}deg)`
+    second.style.transform = `rotate(${secondsDegree}deg)`
 
 
-    const minutes = now.getMinutes();
+    const minutes = myDate.getMinutes();
     const minutesDegree = (((minutes / 60) * 360) + 90);
-    minuteHand.style.transform = `rotate(${minutesDegree}deg)`
+    minute.style.transform = `rotate(${minutesDegree}deg)`
 
 
-    const hours = now.getHours();
+    const hours = myDate.getHours();
     const hoursDegree = (((hours / 60) * 360) + 90);
-    hourHand.style.transform = `rotate(${hoursDegree}deg)`
+    hour.style.transform = `rotate(${hoursDegree}deg)`
 
 }
 
-setInterval(getTime, 1000);
+setInterval(setClock, 1000);
