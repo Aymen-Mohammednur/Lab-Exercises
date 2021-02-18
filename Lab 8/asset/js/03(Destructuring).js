@@ -49,9 +49,9 @@ function objectDestructuring() {
     //2. Display it [Replace it with ${firstName} ${lastName} once you have the variables]
     des_obj1.innerHTML = `Hi , I am ${firstName} ${lastName} `
 
-
+    
     //1. Destructor this object to fName and sName [different naming]
-    let {fName, lName} = person;
+    let {firstName: fName, lastName: lName} = person;
 
     //2. Display it [Replace it with ${Name} ${lName} once you have the variables]
     des_obj2.innerHTML = `Hi , I am ${fName} ${lName} `
