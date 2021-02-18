@@ -1,24 +1,24 @@
-const hour = document.querySelector('.hour');
-const minute = document.querySelector('.minute');
-const second = document.querySelector('.seconds');
+const hourDiv = document.querySelector('.hour');
+const minuteDiv = document.querySelector('.minute');
+const secondDiv = document.querySelector('.seconds');
+
+setInterval(setClock, 1000);
 
 function setClock() {
     const myDate = new Date();
 
     const seconds = myDate.getSeconds();
-    const secondsDegree = (((seconds / 60) * 360) + 90);
-    second.style.transform = `rotate(${secondsDegree}deg)`
-
+    const secRot = (((seconds / 60) * 360) + 90);
+    secondDiv.style.transform = `rotate(${secRot}deg)`
 
     const minutes = myDate.getMinutes();
-    const minutesDegree = (((minutes / 60) * 360) + 90);
-    minute.style.transform = `rotate(${minutesDegree}deg)`
-
+    const minRot = (((minutes / 60) * 360) + 90);
+    minuteDiv.style.transform = `rotate(${minRot}deg)`
 
     const hours = myDate.getHours();
-    const hoursDegree = (((hours / 60) * 360) + 90);
-    hour.style.transform = `rotate(${hoursDegree}deg)`
+    const houRot = (((hours / 60) * 360) + 90);
+    hourDiv.style.transform = `rotate(${houRot}deg)`
 
 }
 
-setInterval(setClock, 1000);
+setClock();

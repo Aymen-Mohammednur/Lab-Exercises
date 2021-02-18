@@ -1,5 +1,4 @@
 html {
-    /* background: linear-gradient(to right, rgba(90, 93, 145, 1) 0%, rgba(173, 255, 99, 1) 100%); */
     text-align: center;
     font-size: 10px;
 }
@@ -40,9 +39,31 @@ body {
     transform: translateY(-3px);
 }
 
-.hour, .minute, .seconds {
+ .seconds {
     width: 50%;
-    height: 6px;
+    height: 1px;
+    background: rgb(148, 25, 25);
+    position: absolute;
+    top: 50%;
+    transform-origin: 100%;
+    transform: rotate(90deg);
+    transition: 0.3s all;
+}
+
+.minute{
+    width: 50%;
+    height: 3px;
+    background: rgb(148, 25, 25);
+    position: absolute;
+    top: 50%;
+    transform-origin: 100%;
+    transform: rotate(90deg);
+    transition: 0.3s all;
+}
+
+.hour{
+    width: 50%;
+    height: 5px;
     background: rgb(148, 25, 25);
     position: absolute;
     top: 50%;
