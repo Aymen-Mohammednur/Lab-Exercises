@@ -1,3 +1,7 @@
+let myCall = document.getElementById("call_demo")
+let myBind = document.getElementById("bind_demo")
+let myApply = document.getElementById("apply_demo")
+
 //DOM Load 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -30,6 +34,7 @@ function usingCall() {
 
     //1. Borrow fullName using call
     //2. Pass call_demo[as ui_place] , Hi I am ,[message]
+    Brad.fullName.call(Cerscy, myCall, "Hi I am")
 
 
 }
@@ -44,6 +49,7 @@ function usingApply() {
 
     //1. Borrow fullName using apply
     //2. Pass apply_demo[as ui_place] and Hi I am ,[as message] as array
+    Brad.fullName.apply(Jon, [myApply, "Hi I am"])
 
 
 }
@@ -58,6 +64,8 @@ function usingBind() {
 
     //1. Borrow fullName using bind
     //2. Pass bind_demo[as ui_place] , Hi I am ,[as message]
+    let bindFunc = Brad.fullName.bind(Daenerys, myBind, "Hi I am");
+    bindFunc();
 
 
 }
